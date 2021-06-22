@@ -187,8 +187,10 @@ post_process <- function(x, simplifyVector = TRUE, simplifyDataFrame = simplifyV
     simplifyMatrix = simplifyMatrix, flatten = flatten)
 
   # We assume ndjson with objects
-  if(isTRUE(simplifyDataFrame)){
-    return(as.data.frame(out))
+  if(!isTRUE(simplifyDataFrame)){
+    coerceDataFrame <- getCoerceDataFrame(simplifyDataFrame)
+
+    return(coerceDataFrame(as.data.frame(out)))
   } else {
     out
   }
